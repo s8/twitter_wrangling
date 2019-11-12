@@ -19,9 +19,15 @@ Some interesting facts uncovered while wrangling this dataset:
 
 - Quality:
   1.  `tweet_id`, `in_reply_to_user_id`,  `in_reply_to_status_id`, `retweeted_status_user_id` columns need to be strings
-  2. source field needs to be parsed and turned into `category` type variable
+  2. `source` field needs to be parsed and turned into `category` type variable
   3. `timestamp` and `retweeted_status_timestamp` columns should be `date_time` type variables
   4. `doggo / floofer / pupper / puppo` columns should be boolean variables for future use in regression models
+  5. `lang` should be a `catgory` variable.
+  6. `place` has only one record, so can be considered null.
+  7. `contibutors`, `coordinates`, `favorited`, `geo`, `is_quote_status`, `possibly_sensitive`, `possibly_sensitive_appealable`, `retweeted`, `truncated` are all zero-content columns, so should be removed.
+  8. `expanded_urls` column contains strings that need to be parsed and duplicates removed
+      twitter_archive.expanded_urls = twitter_archive.expanded_urls.apply(lambda x: list(set(str(x).split(','))))
+
 
 - Tidiness:
   1. `doggo / floofer / pupper / puppo` should be melted into a single category variable for better human use and visualisations
